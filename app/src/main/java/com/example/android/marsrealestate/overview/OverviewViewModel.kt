@@ -26,29 +26,29 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
+
+enum class MarsApiStatus{LOADING,DONE,ERROR}
+
 class OverviewViewModel : ViewModel() {
 
     private val viewModelJob= Job()
     private val uiScope= CoroutineScope(Dispatchers.Main+viewModelJob)
 
     // The internal MutableLiveData String that stores the status of the most recent request
-    private val _status = MutableLiveData<String>()
+    private val _status = MutableLiveData<MarsApiStatus>()
 
     // The external immutable LiveData for the request status String
-    val response: LiveData<String>
+    val status: LiveData<MarsApiStatus>
         get() = _status
     
     
-    private val _property=MutableLiveData<MarsProperty>()
-    val property:LiveData<MarsProperty>
-        get()=_property
+    private val _properties=MutableLiveData<List<MarsProperty>>()
+    val properties:LiveData<List<MarsProperty>>
+        get()=_properties
 
     
 
@@ -70,13 +70,15 @@ class OverviewViewModel : ViewModel() {
         uiScope.launch {
             var getPropertiesDeferred=MarsApi.retroFitService.getProperties()
             try {
+                MarsApiStatus.LOADING
                 val listResult=getPropertiesDeferred.await()
+                MarsApiStatus.DONE
                 if (listResult?.size>0){
-                    _property.value=listResult[0]
+                    _properties.value=listResult
                 }
             }
             catch (t: Throwable){
-                _status.value="Failure: ${t.message}"
+                _status.value=MarsApiStatus.ERROR
 
             }
         }
