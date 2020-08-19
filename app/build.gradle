@@ -62,5 +62,29 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
     // Core with Ktx
+
     implementation "androidx.core:core-ktx:$version_core"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+//    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+
+    //coroutines and retrofit coroutine adapter
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+
+
+    //Glide Library
+    implementation "com.github.bumptech.glide:glide:$version_glide"
+
+
+
+
+
 }
