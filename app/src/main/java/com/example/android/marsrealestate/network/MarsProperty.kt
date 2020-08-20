@@ -32,7 +32,7 @@ data class MarsProperty(
         @Json(name = "img_src")
         val imgSrcUrl:String,
         val type:String,
-        val isRental:Boolean= (type=="rental")
+        val isRental:Boolean=type=="rent"
 
 ) : Parcelable {
 }
