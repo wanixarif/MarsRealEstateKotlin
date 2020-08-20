@@ -47,3 +47,5 @@ fun bindImage(imgView:ImageView,imgUrl:String?){
                 .into(imgView)
     }
 }
+
+
